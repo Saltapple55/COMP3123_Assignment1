@@ -1,7 +1,7 @@
 require('dotenv').config() //don;t need instance
 
-const express = require('express');
 const cors = require('cors');
+const express = require('express');
 const router = express.Router();
 
 const mongoose = require('mongoose');
@@ -26,14 +26,14 @@ const employeeController = require('../routes/employee');
 const app = express();
 const SERVER_PORT = process.env.port || 3001;
 
-app.use(cors(
+app.use(
     cors({
         origin: ['http://localhost:3001', 'https://comp-3123-assignment1-taupe.vercel.app/'], // Replace with your frontend URLs
         methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
         credentials: true, // Optional: Allow cookies if needed
       })
 
-));
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 module.exports = router;
