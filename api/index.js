@@ -19,12 +19,12 @@ database.once('connected', ()=>{
     console.log('Database Connected')
 } )
 
-const userController = require('../routes/user');
-const employeeController = require('../routes/employee');
 
 
 const app = express();
-const SERVER_PORT = process.env.port || 3001;
+//const SERVER_PORT = process.env.port || 3001;
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(
     cors({
@@ -34,14 +34,19 @@ app.use(
       })
 
 );
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-module.exports = router;
+
+const userController = require('../routes/user');
+const employeeController = require('../routes/employee');
+
 
 app.use('/api/v1/user', userController)
 app.use('/api/v1/emp', employeeController)
 
-app.get("/", (req, res) => res.send("Express on Vercel"));
+app.get("/", (req, res) =>{
+    console.log('Handler executed');
+//    console.log(res)
+     res.status(200).send("Express on Vercel")
+    });
 
 app.get("/message", (req, res) => {
     res.json({ message: "Hello from server!" });
@@ -61,7 +66,9 @@ app.post('/api/post', (req,res)=>{
 
 })
 
+module.exports = app;
 
-app.listen(SERVER_PORT, () => {
-    console.log(`Server is running on port http://localhost:${SERVER_PORT}`);
-})
+// app.listen(SERVER_PORT, () => {
+//     console.log(`Server is running on port http://localhost:${SERVER_PORT}`);
+// })
+
