@@ -1,6 +1,8 @@
 const express=require('express')
 const UserModel = require('../models/user')
+const jwt = require("jsonwebtoken");
 
+console.log("JWT module:", jwt);
 const router= express.Router()
 module.exports=router;
 
@@ -25,11 +27,27 @@ router.post("/login", async (req,res)=>{
                 res.status(404).send({message: "Password incorrect"})
             }
             else{
-                res.send("Welcome to website")
+                const token = jwt.sign(
+                    {
+                      userId: user._id,
+                      userUname: uname,
+                    },
+                    "RANDOM-TOKEN",
+                    { expiresIn: "24h" }
+                  );
+                  res.status(200).send({
+                    message: "Login Successful",
+                    username: uname,
+                    token,
+                    });
+                
+
             }
         }
     }).catch((err)=>{
         res.status(500).send({message: err.message})
+
+
     })
     
 })

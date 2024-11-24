@@ -3,7 +3,8 @@ require('dotenv').config() //don;t need instance
 const cors = require('cors');
 const express = require('express');
 const router = express.Router();
-
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const mongoose = require('mongoose');
 const mongoString=process.env.DATABASE_URL
 
@@ -22,7 +23,7 @@ database.once('connected', ()=>{
 
 
 const app = express();
-//const SERVER_PORT = process.env.port || 3001;
+const SERVER_PORT = process.env.port || 3001;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
@@ -72,7 +73,7 @@ app.post('/api/post', (req,res)=>{
 
 module.exports = app;
 
-// app.listen(SERVER_PORT, () => {
-//     console.log(`Server is running on port http://localhost:${SERVER_PORT}`);
-// })
+app.listen(SERVER_PORT, () => {
+    console.log(`Server is running on port http://localhost:${SERVER_PORT}`);
+})
 
