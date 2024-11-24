@@ -25,10 +25,14 @@ const app = express();
 //const SERVER_PORT = process.env.port || 3001;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+   });
 
 app.use(
     cors({
-        origin: ['http://localhost:3001', 'https://comp-3123-assignment1-taupe.vercel.app/'], // Replace with your frontend URLs
+        origin: ['http://localhost:3000', 'https://comp-3123-assignment2.vercel.app/'], // Replace with your frontend URLs
         methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
         credentials: true, // Optional: Allow cookies if needed
       })
