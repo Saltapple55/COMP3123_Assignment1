@@ -19,20 +19,29 @@ database.once('connected', ()=>{
     console.log('Database Connected')
 } )
 
-const userController = require('./routes/user');
-const employeeController = require('./routes/employee');
+const userController = require('../routes/user');
+const employeeController = require('../routes/employee');
 
 
 const app = express();
 const SERVER_PORT = process.env.port || 3001;
 
-app.use(cors());
+app.use(cors(
+    cors({
+        origin: ['http://localhost:3001', 'https://comp-3123-assignment1-taupe.vercel.app/'], // Replace with your frontend URLs
+        methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
+        credentials: true, // Optional: Allow cookies if needed
+      })
+
+));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 module.exports = router;
 
 app.use('/api/v1/user', userController)
 app.use('/api/v1/emp', employeeController)
+
+app.get("/", (req, res) => res.send("Express on Vercel"));
 
 app.get("/message", (req, res) => {
     res.json({ message: "Hello from server!" });
