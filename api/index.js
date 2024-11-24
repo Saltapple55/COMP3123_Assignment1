@@ -4,7 +4,7 @@ const cors = require('cors');
 const express = require('express');
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+//const bcrypt = require("bcrypt");
 const mongoose = require('mongoose');
 const mongoString=process.env.DATABASE_URL
 
