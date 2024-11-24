@@ -73,7 +73,7 @@ app.post('/api/post', (req,res)=>{
 
 module.exports = app;
 
-app.listen(SERVER_PORT, () => {
-    console.log(`Server is running on port http://localhost:${SERVER_PORT}`);
-})
+// app.listen(SERVER_PORT, () => {
+//     console.log(`Server is running on port http://localhost:${SERVER_PORT}`);
+// })
 
