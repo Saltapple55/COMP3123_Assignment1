@@ -30,6 +30,11 @@ updated_at: {
     default: Date.now()
 }
 });
+employeeSchema.pre("findOneAndUpdate", function(next) {
+    this.set({ updated_at: Date.now() });
+    next();
+})
 const Employee = mongoose.model('Employee', employeeSchema);
+
 
 module.exports = Employee;

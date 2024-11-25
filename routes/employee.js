@@ -42,12 +42,26 @@ router.get("/employees/:id", (req,res)=>{
 
 })
 
+router.get("/employees/search/:department", (req,res)=>{
+    //req.params
+    EmployeeModel.find({"department": req.params.department}).then((emp)=>{
+       if(emp) {
+           res.send(emp)
+       } else {
+           res.send({message: "no employees under this field"})
+       }
+   }).catch((err)=>{
+       res.status(500).send({message: err.message})
+   })
+
+})
+
 router.put("/employees/:id", async (req,res)=>{
     await EmployeeModel.findByIdAndUpdate(req.params.id, req.body)
     .then((emp) => {
         if(emp) {
             emp.updated_at=Date.now()
-            console.log('employee updating')
+            //console.log('employee updating')
             res.send(emp)
             console.log(emp.department)
         } else {
