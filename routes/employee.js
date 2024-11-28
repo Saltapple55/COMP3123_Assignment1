@@ -44,10 +44,13 @@ router.get("/employees/:id", (req,res)=>{
 
 router.get("/employees/search/:department", (req,res)=>{
     //req.params
-    EmployeeModel.find({"department": req.params.department}).then((emp)=>{
+    EmployeeModel.find({ $or: [{"department": req.params.department}, {"position": req.params.department}]}).then((emp)=>{
        if(emp) {
            res.send(emp)
        } 
+       else{
+        res.send("no employees found")
+       }
        
    }).catch((err)=>{
        res.status(500).send({message: err.message})
@@ -56,6 +59,7 @@ router.get("/employees/search/:department", (req,res)=>{
     if(emp) {
         res.send(emp)
     } 
+
     
 }).catch((err)=>{
     res.status(500).send({message: err.message})
