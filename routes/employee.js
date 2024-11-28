@@ -47,12 +47,19 @@ router.get("/employees/search/:department", (req,res)=>{
     EmployeeModel.find({"department": req.params.department}).then((emp)=>{
        if(emp) {
            res.send(emp)
-       } else {
-           res.send({message: "no employees under this field"})
-       }
+       } 
+       
    }).catch((err)=>{
        res.status(500).send({message: err.message})
    })
+   EmployeeModel.find({"position": req.params.department}).then((emp)=>{
+    if(emp) {
+        res.send(emp)
+    } 
+    
+}).catch((err)=>{
+    res.status(500).send({message: err.message})
+})
 
 })
 
